@@ -1,3 +1,8 @@
 <Solution>
-  <Project Path="E-CommerceAPI.csproj" />
+  <Folder Name="/src/">
+    <Project Path="../ECommerce.Application/ECommerce.Application.csproj" Id="c33cc577-d500-4bb1-b634-393fd63ca937" />
+    <Project Path="../ECommerce.Domain/ECommerce.Domain.csproj" Id="363af107-45c2-48c5-b677-7487b331bf46" />
+    <Project Path="../ECommerce.Infrastructure/ECommerce.Infrastructure.csproj" Id="4fe6086b-9bc4-4471-a76d-17b863cb1aba" />
+    <Project Path="../ECommerce.WebApi/ECommerce.WebApi.csproj" Id="f237ab4e-02d1-4563-b1e2-d76e21557912" />
+  </Folder>
 </Solution>
