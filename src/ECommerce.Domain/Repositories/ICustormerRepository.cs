@@ -1,10 +1,12 @@
-﻿using System;
+﻿using ECommerce.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ECommerce.Domain.Repositories
 {
-    internal interface ICustormerRepository
+    public interface ICustormerRepository : IRepository<Customer>
     {
+        Task<Customer?> GetByIdentityIdAsyc(string IdentityId, CancellationToken cancellationToken = default);
     }
 }

@@ -1,10 +1,13 @@
-﻿using System;
+﻿using ECommerce.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ECommerce.Domain.Repositories
 {
-    internal interface IOrderRepository
+    public interface IOrderRepository : IRepository<Order>
     {
+        Task<IReadOnlyList<Order>> GetOrdersForCustomerAsync(Guid customerId, CancellationToken cancellationToken = default);
+        Task<Order?> GetWithItemsAsync(Guid orderId, CancellationToken cancellationToken = default);
     }
 }
