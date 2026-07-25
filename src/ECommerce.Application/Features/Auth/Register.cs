@@ -1,0 +1,67 @@
+﻿using ECommerce.Application.Common.Interfaces;
+using FluentValidation;
+using MediatR;
+
+namespace ECommerce.Application.Features.Auth
+{
+    public sealed record RegisterCommand(string FirstName, string LastName, string Email, string Password) : IRequest<AuthResponse>;
+
+    public sealed class RegisterValidator : AbstractValidator<RegisterCommand>
+    {
+        public RegisterValidator()
+        {
+            RuleFor(x => x.FirstName)
+                .NotEmpty()
+                .WithMessage("First name is required.")
+                .MaximumLength(80)
+                .WithMessage("First name must not exceed 80 characters.")
+                .MinimumLength(2)
+                .WithMessage("First name must be atleast 2 characters.")
+                .Matches("^[a-zA-Z\\s'-]+$")
+                .WithMessage("First name contains invalid characters.");
+
+            RuleFor(x => x.LastName)
+                .NotEmpty()
+                .WithMessage("Last name is required.")
+                .MaximumLength(80)
+                .WithMessage("Last name must not exceed 80 characters.")
+                .MinimumLength(2)
+                .WithMessage("Last name must be atleast 2 characters.")
+                .Matches("^[a-zA-Z\\s'-]+$")
+                .WithMessage("Last name contains invalid characters.");
+
+            RuleFor(x => x.Email)
+                .NotEmpty()
+                .WithMessage("Email is required.")
+                .EmailAddress()
+                .WithMessage("Invalid email format.")
+                .MaximumLength(160)
+                .WithMessage("Email must not exceed 160 characters.");
+
+            RuleFor(x => x.Password)
+                .NotEmpty()
+                .WithMessage("Password is required.")
+                .MinimumLength(8)
+                .WithMessage("Password must be at least 6 characters long.")
+                .MaximumLength(128)
+                .WithMessage("Password must not exceed 128 characters.")
+                .Matches("[A-Z]")
+                .WithMessage("Password must contain at least one uppercase letter.")
+                .Matches("[a-z]")
+                .WithMessage("Password must contain at least one lowercase letter.")
+                .Matches("[0-9]")
+                .WithMessage("Password must contain at least one digit.")
+                .Matches("[^a-zA-Z0-9]")
+                .WithMessage("Password must contain at least one special character.");
+        }
+    }
+
+    public sealed class RegisterHandler(IIdentityService identityService) : IRequestHandler<RegisterCommand, AuthResponse>
+    {
+        public Task<AuthResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
+        {
+            return identityService.RegisterAsync(request, cancellationToken);
+        }
+    }
+}
+
