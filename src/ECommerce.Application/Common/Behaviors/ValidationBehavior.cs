@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ECommerce.Application.Common.Behaviors
 {
-    public sealed class ValidationBehaviour<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
+    public sealed class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
         : IPipelineBehavior<TRequest, TResponse>
         where TRequest : notnull
     {
