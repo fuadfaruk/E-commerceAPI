@@ -64,8 +64,8 @@ namespace ECommerce.Infrastructure.Data
             var mouseId = Guid.Parse("22222222-2222-2222-2222-222222222222");
 
             builder.Entity<Product>().HasData(
-                new { id = keyboardId, name = "Mechanical Keyboard", Description = "Tactile switches and white backlight.", StockQuantity = 25 },
-                new { id = mouseId, name = "Wireless Mouse", Description = "Ergonomic mouse with USB-C charging", StockQuantity = 40 });
+                new { Id = keyboardId, Name = "Mechanical Keyboard", Description = "Tactile switches and white backlight.", StockQuantity = 25 },
+                new { Id = mouseId, Name = "Wireless Mouse", Description = "Ergonomic mouse with USB-C charging", StockQuantity = 40 });
 
             builder.Entity<Product>().OwnsOne(x => x.Price).HasData(
                 new { ProductId = keyboardId, Amount = 89.99m, Currency = "USD" },
